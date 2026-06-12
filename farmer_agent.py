@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from weather_tool import get_weather
 
 load_dotenv(override=True)
-
+load_dotenv(override=True)
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def ask_farmer_agent(question: str, city: str = "Tirupati") -> str:
