@@ -1,5 +1,7 @@
 # 🌾 AI Farmer Assistant
 
+🌐 **Live Demo:** https://ai-farmer-assistant.onrender.com
+
 An AI-powered farming assistant that gives real-time advice to Indian farmers based on live weather data.
 
 ## 🚀 Features
