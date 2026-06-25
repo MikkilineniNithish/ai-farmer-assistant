@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from farmer_agent import ask_farmer_agent
 from disease_detector import detect_disease
+from database import save_conversation, get_conversations
 
 app = Flask(__name__)
 CORS(app)
@@ -23,6 +24,10 @@ def ask():
         return jsonify({"error": "Please provide a question!"}), 400
 
     answer = ask_farmer_agent(question, city)
+    
+    # Save to database
+    save_conversation(city, question, answer)
+    
     return jsonify({
         "answer": answer,
         "city": city
@@ -39,6 +44,13 @@ def detect():
     diagnosis = detect_disease(image_bytes)
     return jsonify({
         "diagnosis": diagnosis
+    })
+
+@app.route('/history', methods=['GET'])
+def history():
+    conversations = get_conversations(limit=20)
+    return jsonify({
+        "conversations": conversations
     })
 
 if __name__ == '__main__':
