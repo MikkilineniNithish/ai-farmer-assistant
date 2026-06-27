@@ -19,15 +19,14 @@ def ask():
     data = request.get_json()
     question = data.get('question', '')
     city = data.get('city', 'Tirupati')
+    user_id = data.get('user_id', None)
 
     if not question:
         return jsonify({"error": "Please provide a question!"}), 400
 
     answer = ask_farmer_agent(question, city)
-    
-    # Save to database
-    save_conversation(city, question, answer)
-    
+    save_conversation(city, question, answer, user_id)
+
     return jsonify({
         "answer": answer,
         "city": city
@@ -40,18 +39,14 @@ def detect():
 
     image_file = request.files['image']
     image_bytes = image_file.read()
-
     diagnosis = detect_disease(image_bytes)
-    return jsonify({
-        "diagnosis": diagnosis
-    })
+    return jsonify({"diagnosis": diagnosis})
 
 @app.route('/history', methods=['GET'])
 def history():
-    conversations = get_conversations(limit=20)
-    return jsonify({
-        "conversations": conversations
-    })
+    user_id = request.args.get('user_id', None)
+    conversations = get_conversations(limit=20, user_id=user_id)
+    return jsonify({"conversations": conversations})
 
 if __name__ == '__main__':
     app.run(debug=True)
