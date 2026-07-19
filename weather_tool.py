@@ -7,7 +7,13 @@ load_dotenv(override=True)
 def get_weather(city: str) -> dict:
     api_key = os.getenv("OPENWEATHER_API_KEY")
 
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city},IN&appid={api_key}&units=metric"
+    # Check if city is GPS coordinates (lat,lon format)
+    if "," in city and all(part.replace(".", "").replace("-", "").isdigit() for part in city.split(",")):
+        lat, lon = city.split(",")
+        url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
+    else:
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city},IN&appid={api_key}&units=metric"
+
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -16,7 +22,7 @@ def get_weather(city: str) -> dict:
     data = response.json()
 
     return {
-        "city": city,
+        "city": data.get("name", city),
         "temperature_celsius": data["main"]["temp"],
         "humidity_percent": data["main"]["humidity"],
         "description": data["weather"][0]["description"],
@@ -25,5 +31,5 @@ def get_weather(city: str) -> dict:
     }
 
 if __name__ == "__main__":
-    result = get_weather("Nizamabad")
+    result = get_weather("Tirupati")
     print(result)
