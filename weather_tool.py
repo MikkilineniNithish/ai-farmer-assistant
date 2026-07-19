@@ -7,8 +7,7 @@ load_dotenv(override=True)
 def get_weather(city: str) -> dict:
     api_key = os.getenv("OPENWEATHER_API_KEY")
 
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
-
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city},IN&appid={api_key}&units=metric"
     response = requests.get(url)
 
     if response.status_code != 200:
