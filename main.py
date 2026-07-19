@@ -28,7 +28,7 @@ def ask():
 
     if answer.startswith("Sorry, couldn't get weather data"):
         return jsonify({
-            "answer": f"I couldn't find weather data for '{city}'. Please try a nearby larger city like Tirupati, Hyderabad, Chennai, Vijayawada, or Bangalore.",
+            "answer": f"I couldn't find weather data for '{city}'. Please try a nearby larger city. For Andhra Pradesh: Tirupati, Vijayawada, Visakhapatnam. For Tamil Nadu: Chennai, Madurai, Coimbatore, Salem. For Karnataka: Bangalore. For Telangana: Hyderabad.",
             "city": city
         })
 
