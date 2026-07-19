@@ -46,7 +46,13 @@ def detect():
 
     image_file = request.files['image']
     image_bytes = image_file.read()
+    user_id = request.form.get('user_id', None)
+    city = request.form.get('city', 'Unknown')
+
     diagnosis = detect_disease(image_bytes)
+    
+    save_conversation(city, "🌿 Crop disease detection", diagnosis, user_id)
+    
     return jsonify({"diagnosis": diagnosis})
 
 @app.route('/history', methods=['GET'])

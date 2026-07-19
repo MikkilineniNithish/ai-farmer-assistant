@@ -11,7 +11,18 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 def detect_disease(image_bytes: bytes) -> str:
     base64_image = base64.b64encode(image_bytes).decode("utf-8")
 
-    prompt = "You are an expert agricultural plant pathologist helping Indian farmers. Look at this crop/plant leaf image carefully and provide: 1. Plant identification (if possible) 2. Disease/Pest detected (name it clearly, or say Healthy if no issue) 3. Severity (Mild / Moderate / Severe) 4. Treatment advice (2-3 practical steps a farmer can take) 5. Prevention tips (1-2 tips for future). Keep your answer simple, practical, and farmer-friendly."
+    prompt = """You are an expert agricultural plant pathologist helping Indian farmers.
+Look at this crop/plant leaf image carefully and provide:
+
+1. Plant identification (if possible)
+2. Disease/Pest detected (name it clearly, or say Healthy if no issue)
+3. Severity (Mild / Moderate / Severe)
+4. Treatment advice (2-3 practical steps a farmer can take)
+5. Prevention tips (1-2 tips for future)
+
+Keep your answer simple, practical, and farmer-friendly.
+Do NOT use markdown formatting like ### or ** or --.
+Use plain text with numbers and line breaks only."""
 
     response = requests.post(
         url="https://openrouter.ai/api/v1/chat/completions",
