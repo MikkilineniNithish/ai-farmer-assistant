@@ -25,6 +25,13 @@ def ask():
         return jsonify({"error": "Please provide a question!"}), 400
 
     answer = ask_farmer_agent(question, city)
+
+    if answer.startswith("Sorry, couldn't get weather data"):
+        return jsonify({
+            "answer": f"I couldn't find weather data for '{city}'. Please try a nearby larger city like Tirupati, Hyderabad, Chennai, Vijayawada, or Bangalore.",
+            "city": city
+        })
+
     save_conversation(city, question, answer, user_id)
 
     return jsonify({
