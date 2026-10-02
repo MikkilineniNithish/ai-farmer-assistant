@@ -49,10 +49,10 @@ Use plain text with numbers and line breaks only."""
         }
     )
 
-        result = response.json()
-    print("🔍 OpenRouter response:", result)   # debug line
+    result = response.json()
+    print("OpenRouter response:", result)
     if "choices" not in result:
-        print("❌ OpenRouter error:", result)
+        print("OpenRouter error:", result)
         return "Sorry, couldn't analyze the image. Please try again!"
     return result["choices"][0]["message"]["content"]
 
