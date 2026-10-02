@@ -31,7 +31,7 @@ Use plain text with numbers and line breaks only."""
             "Content-Type": "application/json"
         },
         json={
-            "model": "nvidia/nemotron-nano-12b-v2-vl:free",
+            "model": "google/gemma-3-27b-it:free",,
             "messages": [
                 {
                     "role": "user",
