@@ -31,7 +31,7 @@ Use plain text with numbers and line breaks only."""
             "Content-Type": "application/json"
         },
         json={
-            "model": "google/gemini-2.0-flash-exp:free",
+            "model": "google/gemma-4-31b-it:free",
             "messages": [
                 {
                     "role": "user",
